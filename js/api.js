@@ -259,17 +259,14 @@ class Trivia{
         this.draggedElement = event.target; // Guardamos el elemento que está siendo arrastrado
         this.startX = touch.clientX; // Coordenada inicial X
         this.startY = touch.clientY; // Coordenada inicial Y
-    
+
         // Agregamos una clase visual para destacar el elemento arrastrado
         this.draggedElement.classList.add("dragging");
-
-        ////
-        //event.dataTransfer.setData("text/plain", event.target.innerText);
     }
     
     handleTouchMove(event) {
         event.preventDefault(); // Evitamos el comportamiento predeterminado del navegador
-    
+
         const touch = event.touches[0];
         const deltaX = touch.clientX - this.startX;
         const deltaY = touch.clientY - this.startY;
@@ -279,38 +276,36 @@ class Trivia{
     }
     
     handleTouchEnd(event) {
-        // Restauramos la posición y eliminamos la clase visual
-        //this.draggedElement.style.transform = "";
         this.draggedElement.classList.remove("dragging");
-    
+
         // Al soltar, verificamos si está sobre una zona válida
         const touch = event.changedTouches[0];
         const dropZone = document.elementFromPoint(touch.clientX, touch.clientY);
-    
+
         if (dropZone && dropZone.tagName === "ARTICLE") {
             // Realizamos el drop simulando la lógica del mouse
             const data = this.draggedElement.textContent;
             const droppedItem = document.createElement("li");
             droppedItem.textContent = data;
             droppedItem.setAttribute("draggable", "true");
-    
+
             // Limpiamos la zona de destino
             Array.from(dropZone.children).forEach(child => {
                 if (child.tagName === "LI") {
                     dropZone.removeChild(child);
                 }
             });
-    
+
             // Añadimos el nuevo elemento
             dropZone.appendChild(droppedItem);
-    
+
             // Reasignamos eventos al nuevo elemento
             droppedItem.addEventListener("touchstart", this.handleTouchStart.bind(this));
             droppedItem.addEventListener("touchmove", this.handleTouchMove.bind(this));
             droppedItem.addEventListener("touchend", this.handleTouchEnd.bind(this));
         }
-    
-        this.draggedElement = null; // Reseteamos el estado
+
+        this.draggedElement = null;
     }
     
     handleTouchMoveOver(event) {
