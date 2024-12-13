@@ -33,6 +33,11 @@ class Trivia{
 
     currentAudioElement;
     
+    //gestionar api drag movil
+    draggedElement;
+    startX;
+    startY;
+
 
     constructor(){
         this.primerCampoSeleccionado = null;
@@ -93,15 +98,7 @@ class Trivia{
 
         var counterRespuestas = 0;
         //Observo cuantas respuestas se han puesto, y de las puestas las que sean correctas:
-        /*
-        $("article").each(function() {
-            // Comprobamos si el artículo tiene al menos un hijo <li> o exactamente dos hijos
-            if ($(this).children().length === 2) { //Se ha puesto una respuesta
-                counterRespuestas++;
-                //y almaceno la respuesta puesta
-            }
-        });
-        */
+        
         for (var i = 0; i < 4; i++) {
             var article = $("article").eq(i);
     
@@ -195,7 +192,7 @@ class Trivia{
             item.addEventListener("dragstart", this.handleDragStart);
             item.addEventListener("dragend", this.handleDragEnd);
 
-            //y los casos para moviles
+            //para moviles
             item.addEventListener("touchstart", this.handleTouchStart.bind(this));
             item.addEventListener("touchmove", this.handleTouchMove.bind(this));
             item.addEventListener("touchend", this.handleTouchEnd.bind(this));
@@ -205,8 +202,9 @@ class Trivia{
             zone.addEventListener("dragover", this.handleDragOver);
             zone.addEventListener("drop", this.handleDrop);
 
-            //y caso movil
-            zone.addEventListener("touchmove", this.handleTouchMoveOverDropZone.bind(this));
+            //para moviles
+            zone.addEventListener("touchmove", this.handleTouchMoveOver.bind(this));
+            zone.addEventListener("touchend", this.handleTouchEndDrop.bind(this));
         });
     }
 
@@ -255,76 +253,76 @@ class Trivia{
         }
     }
 
-    /************************************************** */
+    /************************************************************ */
     handleTouchStart(event) {
-        // Evita el comportamiento predeterminado
-        event.preventDefault();
-
-        // Guarda el elemento tocado
-        this.touchItem = event.target;
-        this.touchItem.classList.add("dragging");
-
-        // Guarda las coordenadas iniciales del toque
-        this.touchStartX = event.touches[0].clientX;
-        this.touchStartY = event.touches[0].clientY;
-    }
-
-    handleTouchMove(event) {
-        // Evita el comportamiento predeterminado
-        event.preventDefault();
-
-        // Actualiza la posición del elemento mientras se arrastra
-        const touchX = event.touches[0].clientX;
-        const touchY = event.touches[0].clientY;
-
-        // Establece las coordenadas del elemento
-        this.touchItem.style.position = "absolute";
-        this.touchItem.style.left = `${touchX}px`;
-        this.touchItem.style.top = `${touchY}px`;
-    }
-
-    handleTouchEnd(event) {
-        // Quita la clase "dragging"
-        if (this.touchItem) {
-            this.touchItem.classList.remove("dragging");
-            this.touchItem.style.position = ""; // Restablece la posición
-            this.touchItem.style.left = "";
-            this.touchItem.style.top = "";
-
-            // Comprueba si el toque finalizó en una zona válida
-            const dropZone = document.elementFromPoint(
-                event.changedTouches[0].clientX,
-                event.changedTouches[0].clientY
-            );
-
-            if (dropZone && dropZone.closest("article")) {
-                const validDropZone = dropZone.closest("article");
-
-                // Elimina los elementos existentes dentro de la zona, excepto el encabezado
-                Array.from(validDropZone.children).forEach(child => {
-                    if (child.tagName === "LI") {
-                        validDropZone.removeChild(child);
-                    }
-                });
-
-                // Añade el elemento tocado a la zona válida
-                validDropZone.appendChild(this.touchItem);
-            }
-        }
-
-        // Limpia las referencias
-        this.touchItem = null;
-        this.touchStartX = null;
-        this.touchStartY = null;
-    }
-
-    handleTouchMoveOverDropZone(event) {
-        event.preventDefault();
-        // Puedes implementar aquí lógica adicional para indicar visualmente que se está sobre una zona válida
-    }
-    /************************************************** */
-
+        const touch = event.touches[0]; // Primer punto de contacto
+        this.draggedElement = event.target; // Guardamos el elemento que está siendo arrastrado
+        this.startX = touch.clientX; // Coordenada inicial X
+        this.startY = touch.clientY; // Coordenada inicial Y
     
+        // Agregamos una clase visual para destacar el elemento arrastrado
+        this.draggedElement.classList.add("dragging");
+    }
+    
+    handleTouchMove(event) {
+        event.preventDefault(); // Evitamos el comportamiento predeterminado del navegador
+    
+        const touch = event.touches[0];
+        const deltaX = touch.clientX - this.startX;
+        const deltaY = touch.clientY - this.startY;
+    
+        // Movemos el elemento visualmente
+        //this.draggedElement.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+    }
+    
+    handleTouchEnd(event) {
+        // Restauramos la posición y eliminamos la clase visual
+        //this.draggedElement.style.transform = "";
+        this.draggedElement.classList.remove("dragging");
+    
+        // Al soltar, verificamos si está sobre una zona válida
+        const touch = event.changedTouches[0];
+        const dropZone = document.elementFromPoint(touch.clientX, touch.clientY);
+    
+        if (dropZone && dropZone.tagName === "ARTICLE") {
+            // Realizamos el drop simulando la lógica del mouse
+            const data = this.draggedElement.textContent;
+            const droppedItem = document.createElement("li");
+            droppedItem.textContent = data;
+            droppedItem.setAttribute("draggable", "true");
+    
+            // Limpiamos la zona de destino
+            Array.from(dropZone.children).forEach(child => {
+                if (child.tagName === "LI") {
+                    dropZone.removeChild(child);
+                }
+            });
+    
+            // Añadimos el nuevo elemento
+            dropZone.appendChild(droppedItem);
+    
+            // Reasignamos eventos al nuevo elemento
+            droppedItem.addEventListener("touchstart", this.handleTouchStart.bind(this));
+            droppedItem.addEventListener("touchmove", this.handleTouchMove.bind(this));
+            droppedItem.addEventListener("touchend", this.handleTouchEnd.bind(this));
+        }
+    
+        this.draggedElement = null; // Reseteamos el estado
+    }
+    
+    handleTouchMoveOver(event) {
+        // Este método asegura que se permita el "drop" en una zona válida mientras se mueve
+        event.preventDefault();
+    }
+    
+    handleTouchEndDrop(event) {
+        // Método que puede manejar situaciones adicionales tras un "drop" en zonas táctiles
+        event.preventDefault();
+    }
+
+
+    /************************************************************** */
+
     //API Page Visibility
     handleVisibilityChange() {
         if (document.visibilityState === 'hidden') {
