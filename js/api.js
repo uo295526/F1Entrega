@@ -193,9 +193,9 @@ class Trivia{
             item.addEventListener("dragend", this.handleDragEnd);
 
             //para moviles
-            item.addEventListener("touchstart", this.handleTouchStart.bind(this));
-            item.addEventListener("touchmove", this.handleTouchMove.bind(this));
-            item.addEventListener("touchend", this.handleTouchEnd.bind(this));
+            item.addEventListener("touchstart", this.handleTouchStart);
+            item.addEventListener("touchmove", this.handleTouchMove);
+            item.addEventListener("touchend", this.handleTouchEnd);
         });
 
         dropZones.forEach(zone => {
@@ -203,8 +203,8 @@ class Trivia{
             zone.addEventListener("drop", this.handleDrop);
 
             //para moviles
-            zone.addEventListener("touchmove", this.handleTouchMoveOver.bind(this));
-            zone.addEventListener("touchend", this.handleTouchEndDrop.bind(this));
+            zone.addEventListener("touchmove", this.handleTouchMoveOver);
+            zone.addEventListener("touchend", this.handleTouchEndDrop);
         });
     }
 
@@ -261,7 +261,10 @@ class Trivia{
         this.startY = touch.clientY; // Coordenada inicial Y
     
         // Agregamos una clase visual para destacar el elemento arrastrado
-        this.draggedElement.classList.add("dragging");
+        event.draggedElement.classList.add("dragging");
+
+        ////
+        event.dataTransfer.setData("text/plain", event.target.innerText);
     }
     
     handleTouchMove(event) {
@@ -278,7 +281,7 @@ class Trivia{
     handleTouchEnd(event) {
         // Restauramos la posición y eliminamos la clase visual
         //this.draggedElement.style.transform = "";
-        this.draggedElement.classList.remove("dragging");
+        event.draggedElement.classList.remove("dragging");
     
         // Al soltar, verificamos si está sobre una zona válida
         const touch = event.changedTouches[0];
@@ -286,7 +289,7 @@ class Trivia{
     
         if (dropZone && dropZone.tagName === "ARTICLE") {
             // Realizamos el drop simulando la lógica del mouse
-            const data = this.draggedElement.textContent;
+            const data = event.draggedElement.textContent;
             const droppedItem = document.createElement("li");
             droppedItem.textContent = data;
             droppedItem.setAttribute("draggable", "true");
@@ -302,9 +305,9 @@ class Trivia{
             dropZone.appendChild(droppedItem);
     
             // Reasignamos eventos al nuevo elemento
-            droppedItem.addEventListener("touchstart", this.handleTouchStart.bind(this));
-            droppedItem.addEventListener("touchmove", this.handleTouchMove.bind(this));
-            droppedItem.addEventListener("touchend", this.handleTouchEnd.bind(this));
+            droppedItem.addEventListener("touchstart", this.handleTouchStart);
+            droppedItem.addEventListener("touchmove", this.handleTouchMove);
+            droppedItem.addEventListener("touchend", this.handleTouchEnd);
         }
     
         this.draggedElement = null; // Reseteamos el estado
@@ -319,8 +322,6 @@ class Trivia{
         // Método que puede manejar situaciones adicionales tras un "drop" en zonas táctiles
         event.preventDefault();
     }
-
-
     /************************************************************** */
 
     //API Page Visibility
