@@ -400,3 +400,9 @@ h4 + section > article:nth-of-type(2) > p{
 }
 
 /*menu juegos*/
+
+/*api*/
+section > ul+article{
+  background-color: cornflowerblue;
+  padding-bottom: 2em;
+}
