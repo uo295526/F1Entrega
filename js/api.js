@@ -276,11 +276,11 @@ class Trivia{
         const deltaY = touch.clientY - this.startY;
     
         // Movemos el elemento visualmente
-        this.draggedElement.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+        //this.draggedElement.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
     }
     
     handleTouchEnd(event) {
-        this.draggedElement.style.transform = "";
+        //this.draggedElement.style.transform = "";
 
         this.draggedElement.classList.remove("dragging");
 
