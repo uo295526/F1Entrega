@@ -1,0 +1,136 @@
+/*Especificidad: 001*/  
+main {
+      width: 60%;
+      height: 100%;
+      margin: auto;
+      
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-rows: 1fr 1fr 1fr;
+      gap: 5% 3%;
+      align-items: center;
+
+
+      padding-left: 2em;
+      padding-right: 2em;
+}
+
+/*Especificidad: 001*/  
+main h2 {
+      grid-column: 1 / -1;
+      text-align: center;
+
+}
+/*Especificidad: 001*/  
+div {
+      background-color: #000A;
+      border: 0.3em solid black;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      box-sizing: border-box;
+}
+/*Especificidad: 011*/  
+button:first-of-type {
+      grid-column: 2 / span 1;
+}
+/*Especificidad: 011*/  
+button:nth-of-type(2) {
+      grid-column: 3 / span 1;
+}
+
+
+main > section{
+    grid-column: 1 / -1; /*evito el grid ara esta parte*/
+}
+
+/*Encendido de luces*/
+@keyframes encenderLuces {  /*UN KEYFRAME ES UNA ANIMATION*/
+    from {background-color: #000A;}
+    to {background-color: red;}
+}
+/*asi accedemos a una class definida en una etiqueta*/
+/*Especificidad: 022*/  
+main.load div:first-of-type{
+    animation-name: encenderLuces;
+    animation-duration: 0.5s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards; /*esto par que se quede el resultado de la animacion*/
+}
+/*Especificidad: 022*/  
+main.load div:nth-of-type(2){
+    animation-name: encenderLuces;
+    animation-duration: 0.5s;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+}
+/*Especificidad: 022*/  
+main.load div:nth-of-type(3){
+    animation-name: encenderLuces;
+    animation-duration: 0.5s;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+}
+/*Especificidad: 022*/  
+main.load div:nth-of-type(4){
+    animation-name: encenderLuces;
+    animation-duration: 0.5s;
+    animation-delay: 1.5s;
+    animation-fill-mode: forwards;
+}
+/*Apagado de luces*/
+@keyframes out {  /*UN KEYFRAME ES UNA ANIMATION*/
+    from {background-color: red;}
+    to {background-color: #000A;}
+}
+/*Especificidad: 022*/  
+main.unload div:first-of-type{
+    animation-name: out;
+    animation-duration: 0.1s;
+    animation-delay: 0s;   /*IMP sobreescribir el delay, pues si no los coge de los de load*/
+    animation-fill-mode: forwards; /*esto par que se quede el resultado de la animacion*/
+}
+/*Especificidad: 022*/  
+main.unload div:nth-of-type(2){
+    animation-name: out;
+    animation-duration: 0.1s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+}
+/*Especificidad: 022*/  
+main.unload div:nth-of-type(3){
+    animation-name: out;
+    animation-duration: 0.1s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+}
+/*Especificidad: 022*/  
+main.unload div:nth-of-type(4){
+    animation-name: out;
+    animation-duration: 0.1s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+}
+
+
+/*menu de juegos*/
+
+
+h2+nav{
+    justify-content: center;
+    font-size: 1.2em;
+    padding-bottom: 0.8em;
+
+    padding-top: 1em;
+    margin-top: 0em;
+
+    background-color: #BEBEBE;
+}
+
+h2+nav a{
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+h2{
+    margin-bottom: 0em;
+}

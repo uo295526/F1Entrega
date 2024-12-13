@@ -1,0 +1,402 @@
+/*Especificidad: 001*/  
+body {
+    background-color: #808080;
+    color: #000000; /*color elementos primer plano (texto)*/
+    font-family: Arial,Tahoma,sans-serif; 
+    font-size: 1.05em;
+
+    height: 100vh;
+
+    margin: 0em;
+    /*padding: 0em; */
+}
+/*Especificidad: 001*/ 
+header{
+  /*ADVERTENCIA: El color de primer plano es heredado de body*/
+  background-color: #14480F;
+}
+/*Especificidad: 001*/ 
+main{
+  /*ADVERTENCIA: El color de primer plano es heredado de body*/
+  background-color: #BEBEBE;
+  padding: 0.3em;
+
+  margin: 1em 0.5em;
+}
+/*Especificidad: 002*/ 
+aside dl{
+  padding: 0.8em
+}
+
+/*Especificidad: 003*/ /*Para mirar eso, selectionar el Selector y poner encima el raton*/
+header h1 a{
+  /*ADVERTENCIA: El color de fondo es heredado de header*/
+  color:#ffffff;  /*esto lo ponemos asi pues al ser enlace hereda el color morado*/ /*ADVERTENCIA:Hay color primer plano pero no de fondo*/
+  text-decoration: none;  /*le quito el subrayado a F1DESKTOP*/
+}
+/*Especificidad: 002*/ 
+header nav{
+  text-align: center;
+}
+
+/*Especificidad: 003*/ 
+header nav a{  /*asi, a todos los a del nav en header les quito la decoracion*/
+  /*ADVERTENCIA: El color de fondo es heredado de header*/
+  color:#ffffff;  /*esto lo ponemos asi pues al ser enlace hereda el color morado*/ /*ADVERTENCIA:Hay color primer plano pero no de fondo*/
+  text-decoration: none;
+}
+
+/*Especificidad: 013*/ 
+header nav a.active{ /*asi modificamos el a activo del nav*/
+  /*ADVERTENCIA: El color de fondo es heredado de header*/
+  color: #FFFCD6;
+  font-weight: bold;  
+  border-bottom: 0.1em solid #FFFCD6; /* Línea inferior */
+  border-top: 0.1em solid #FFFCD6; /* línea superior */
+}
+
+/*Especificidad: 012*/
+body > p:first-of-type{  /*SELECTOR ESPECIFICO: cambia el primero de tipo p del body (EN ESTE CASO, LAS MIGAS)*/
+  font-size: 0.85em;
+
+  /*ADVERTENCIA: El color de primer plano es heredado de body*/
+  background-color: #cecece;
+  padding: 1em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+@media (max-width: 465px){  /*caso Moviles*/
+  /*Especificidad: 002*/
+  h1 a{
+    /*ADVERTENCIA:Se redefine font-size para ajustar al dispositivo*/
+    font-size: 1.2em;
+  }
+  /*Especificidad: 003*/
+  header nav a{
+    /*ADVERTENCIA:Se redefine font-size para ajustar al dispositivo*/
+    font-size: 1em;
+
+    margin-right: 1em;
+    margin-left: 0em;
+    margin-top: 1em;
+  }
+
+  /*Especificidad: 012*/
+  body > p:first-of-type{  /*SELECTOR ESPECIFICO: cambia el primero de tipo p del body (EN ESTE CASO, LAS MIGAS)*/
+    display: none; /*esto para que este p (las migas) no salga en moviles*/
+  }
+}
+
+@media (max-width: 799px){  /*caso Tablets*/
+  /*Especificidad: 002*/
+  h1 a{
+    /*ADVERTENCIA:Se redefine font-size para ajustar al dispositivo*/
+    font-size: 1.5em; 
+  }
+  /*Especificidad: 003*/
+  header nav a{
+    /*ADVERTENCIA:Se redefine font-size para ajustar al dispositivo*/
+    font-size: 1.4em;
+
+    /*ADVERTENCIA:Se redefine margin-right para ajustar al dispositivo*/
+    margin-right: 1em;
+    /*ADVERTENCIA:Se redefine margin-left para ajustar al dispositivo*/
+    margin-left: 0em;
+    /*ADVERTENCIA:Se redefine margin-top para ajustar al dispositivo*/
+    margin-top: 1em;
+  }
+}
+
+@media (min-width: 800px){
+  /*Especificidad: 002*/
+  h1 a{
+    /*ADVERTENCIA:Se redefine font-size para ajustar al dispositivo*/
+    font-size: 2.4em;
+  }
+  /*Especificidad: 003*/  
+  header nav a{
+    /*ADVERTENCIA:Se redefine font-size para ajustar al dispositivo*/
+    font-size: 1.8em;
+    /*ADVERTENCIA:Se redefine margin-right para ajustar al dispositivo*/
+    margin-right: 1em;
+    /*ADVERTENCIA:Se redefine margin-left para ajustar al dispositivo*/
+    margin-left: 1em;
+  }
+
+}
+
+/*Especificidad: 001*/ 
+h2{
+  background-color: #15640C;
+  color:#ffffff;
+  padding: 0.5em;
+  border-color: #000000;
+  border-width: 0.15em;
+  border-style: solid;
+}
+/*Especificidad: 001*/ 
+h3{
+  background-color: #15640C;
+  color:#ffffff;
+  padding: 0.3em;
+}
+/*Especificidad: 001*/ 
+h4{
+  /*ADVERTENCIA: El color de primer plano es heredado de body*/
+  background-color: #6AA63F;
+  padding: 0.2em;
+}
+
+/*Especificidad: 012*/ 
+main a:link{ /*Pseudoclase->:link = Aun no visitado*/
+  /*ADVERTENCIA: El color de fondo es heredado de main*/
+  color :#000000;
+  font-style: italic;
+}
+/*Especificidad: 012*/ 
+main a:visited{ /*Pseudoclase->:link = Aun no visitado*/
+  /*ADVERTENCIA: El color de fondo es heredado de main*/
+  color :#000000; /*ADVERTENCIA:Hay color primer plano pero no fondo*/
+}
+/*Especificidad: 022*/ 
+main a:link:hover{ /*Pseudoclase->:hover = Cuando el cursor este encima suya*/
+  /*ADVERTENCIA: El color de fondo es heredado de main*/
+  color :#3E067F; /*ADVERTENCIA:Hay color primer plano pero no fondo*/
+}
+/*Especificidad: 022*/ 
+main a:visited:hover{ /*Pseudoclase->:hover = Cuando el cursor este encima suya*/
+  /*ADVERTENCIA: El color de fondo es heredado de main*/
+  color :#3E067F; /*ADVERTENCIA:Hay color primer plano pero no fondo*/
+}
+/*Especificidad: 002*/ 
+ul li{  /*Modificamos los elementos de lista ul NO ordenada*/
+  list-style-type: square;  /*uso cuadrados como indicador de cada elemento*/
+
+  margin: 0.5em;
+}
+/*Especificidad: 002*/ 
+ol li{  /*Modificamos los elementos de lista ol ordenada*/
+  list-style-type: upper-roman;  /*en vez de numeros decimales, empleo romanos en Mayusc*/
+}
+/*Especificidad: 003*/ 
+ul ol li{  /*De la lista UL, modificamos los elementos de listas OL anidadas en la primera*/
+  font-size: 0.9em;
+}
+/*Especificidad: 003*/ 
+ul ul li{  /*De la lista UL, modificamos los elementos de otras listas UL anidadas en la primera*/
+  font-size: 0.9em;
+}
+/*Especificidad: 001*/ 
+dt{ /*el termino (no la definicion)*/
+  text-decoration: underline;
+  padding-top: 0.16em; /*dejen espacio por arriba, asi espacio cada par de termino/definicion*/
+}
+/*Especificidad: 001*/ 
+table {
+  width:80%;
+  height:auto;
+
+  margin: 0.5em; /*padding superior e inferior*/  
+  border-collapse: collapse;
+
+  /*margin: 3% auto;*/
+}
+/*Especificidad: 002*/ 
+table th{
+  /*El color de primer plano es heredado de body*/
+  border-width: 0.12em;  /*para que queden celdas. Poner aqui y en TD*/
+  border-color: black;
+  border-style: solid;
+  background-color: #107910; /*color de la celda*/
+  color: white;
+  padding: 0.2em;
+}
+/*Especificidad: 002*/ 
+table td{
+  /*El color de primer plano es heredado de body*/
+  border: 0.12em;  /*para que queden celdas. Poner aqui y en TD*/
+  border-color: black;
+  border-style: solid;
+  /*ADVERTENCIA: El color de primer plano es heredado de body*/
+  background-color: #c3d3c3; /*ADVERTENCIA:Hay color FONDO pero no primer plano*/
+  text-align: center;
+  padding: 0.2em;
+}
+/*Especificidad: 001*/ 
+img{
+  width:100%;
+  height:auto;
+  display: block; /*lo muestra en un bloque*/
+  margin-left: auto;
+  margin-right: auto; /* Centra horizontalmente */
+}
+/*Especificidad: 001*/ 
+video{
+  width:100%;
+  height:auto;
+}
+
+/*
+
+section{
+  background-color: rgb(189, 182, 182);
+    border-radius: 1em;
+    border: 0.1em solid green;
+    justify-content: center;
+}
+*/
+
+/*Especificidad: 003*/  
+main > section > div{
+  width:100%; 
+  height:50vh;
+}
+
+/*Para elementos Drag an drop*/
+/*Especificidad: 011*/  
+li[draggable="true"] {
+  cursor: grab; /* Cambia el cursor al estilo "mover" */
+}
+
+/*Especificidad: 021*/  
+li[draggable="true"]:active {
+  cursor: grabbing; /* Cambia el cursor mientras el elemento está siendo arrastrado */
+}
+
+/*Especificidad: 013*/  
+main > h2+button:first-of-type{
+  font-size: 1.2em;
+  margin-left: 2em;
+}
+
+
+
+
+/*La section de viajes.css del carrusel y moneda*/
+/*Especificidad: 002*/  
+h4 + section{
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1em; /* Espacio entre los artículos */
+  margin: 2em;
+}
+/*Especificidad: 003*/  
+h4 + section > article {
+  flex: 1 1 50%; /*asi los articulos ocupan la mitad cada uno*/
+  max-width: 50%;
+  box-sizing: border-box;
+  border: 1px solid #ddd; 
+
+  height: 70vh;
+  position: relative;
+  overflow: hidden; 
+}
+/*Especificidad: 004*/  
+h4 + section > article h3 {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0.5em;
+  font-size: 2em;
+}
+/*Especificidad: 004*/  
+h4 + section > article img {
+    width: 100%;
+    max-width: 100vh;
+    height: 100%;
+    /*height: 60vh;*/
+    position: absolute;
+    transition: all 0.5s ease-in-out;
+    object-fit: cover;
+    border-radius: 0.5em;
+}
+/*Especificidad: 004*/  
+h4 + section > article button {
+  position: absolute;
+  width: 2em;
+  height: 2em;
+  padding: 0.5em;
+  border: none;
+  border-radius: 50%;
+  z-index: 10;
+  cursor: pointer;
+  /*ADVERTENCIA: El color de elementos de primer plano es heredado de article*/
+  background-color: #fff;
+  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+}
+/*Especificidad: 014*/  
+h4 + section > article button:active {
+  transform: scale(1.1);
+}
+/*Especificidad: 014*/  
+h4 + section > article button:nth-of-type(1) {
+  top: 50%;
+  left: 2%;
+}
+/*Especificidad: 014*/  
+h4 + section > article button:nth-of-type(2) {
+  top: 50%;
+  right: 2%;
+}
+  
+
+
+
+
+
+h4 + section > article:nth-of-type(2) > p{
+  place-items: center;
+  align-items: center;
+  vertical-align: middle;
+  margin-left: 0.9em;
+
+  font-size: 1.1em;
+}
+
+@media (max-width: 465px){  /*caso Moviles*/
+  
+  h4 + section > article:nth-of-type(2) > p{
+    font-size: 1.1em;
+  }
+
+  h4 + section {
+    flex-wrap: wrap; /* Permite que los artículos se apilen en lugar de estar en una fila */
+  }
+
+  h4 + section > article {
+    flex: 1 1 100%; /* Los artículos ocupan todo el ancho disponible */
+    max-width: 100%; /* Asegura que no queden limitados en tamaño */
+  }
+}
+
+
+@media (max-width: 799px){  /*caso Tablets*/
+  
+  h4 + section > article:nth-of-type(2) > p{
+    font-size: 1.4em;
+  }
+
+  h4 + section {
+    flex-wrap: wrap; /* Permite que los artículos se apilen en lugar de estar en una fila */
+  }
+
+  h4 + section > article {
+    flex: 1 1 100%; /* Los artículos ocupan todo el ancho disponible */
+    max-width: 100%; /* Asegura que no queden limitados en tamaño */
+  }
+}
+
+
+@media (min-width: 800px){
+
+  h4 + section > article:nth-of-type(2) > p{
+    font-size: 1.9em;
+  }
+
+}
+
+/*menu juegos*/

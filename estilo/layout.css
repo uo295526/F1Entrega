@@ -1,0 +1,34 @@
+/*Especificidad: 001*/ 
+header{
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  padding: 1em;
+}
+
+@media (max-width: 465px){  /*caso Moviles*/
+  /*Especificidad: 001*/  
+  header{
+      flex-direction: column;
+  }
+  /*Especificidad: 002*/  
+  header nav{
+      flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 799px){  /*caso Tablets*/
+  /*Especificidad: 001*/  
+  header{
+    flex-direction: column;
+  }
+  
+  /*Especificidad: 002*/
+  header nav{
+      flex-wrap: wrap;
+  }
+}
+
+@media (min-width: 800px){  /*caso Ordenadores*/
+  
+}

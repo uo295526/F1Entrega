@@ -1,0 +1,25 @@
+/*Especificidad: 001*/  
+section{
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10em, 1fr)); /*IMP: asi aseguro adaptabilidad. em=>relativo fuente. fr=>ESPACION DISPONIBLE EN EL GRID*/
+    gap: 1em; /*gap pequeno entre los articles */
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 1em;
+}
+/*Especificidad: 002*/  
+section article{
+    max-width: 100%;
+    text-align: center;
+    background-color: rgb(189, 182, 182);
+    border-radius: 1em;  /*redondear los bordes*/
+    border: 0.2em solid green;
+
+    padding: 1em;
+}
+/*Especificidad: 003*/  
+section article img{
+    width: 100%;
+    height: auto;
+}
