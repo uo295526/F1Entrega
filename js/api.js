@@ -264,7 +264,7 @@ class Trivia{
         this.draggedElement.classList.add("dragging");
 
         ////
-        event.dataTransfer.setData("text/plain", event.target.innerText);
+        //event.dataTransfer.setData("text/plain", event.target.innerText);
     }
     
     handleTouchMove(event) {
