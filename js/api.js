@@ -57,6 +57,10 @@ class Trivia{
         //Al usar la API Drag and Drop
         this.createDragAndDrop();
 
+        this.draggedElement = null;
+        this.startX = 0;
+        this.startY = 0;
+
         //API Page Visibility
         document.addEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
     }
@@ -272,10 +276,12 @@ class Trivia{
         const deltaY = touch.clientY - this.startY;
     
         // Movemos el elemento visualmente
-        //this.draggedElement.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+        this.draggedElement.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
     }
     
     handleTouchEnd(event) {
+        this.draggedElement.style.transform = "";
+
         this.draggedElement.classList.remove("dragging");
 
         // Al soltar, verificamos si está sobre una zona válida
@@ -306,6 +312,8 @@ class Trivia{
         }
 
         this.draggedElement = null;
+        this.startX = 0;
+        this.startY = 0;
     }
     
     handleTouchMoveOver(event) {
